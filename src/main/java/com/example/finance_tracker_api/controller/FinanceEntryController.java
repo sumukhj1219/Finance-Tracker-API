@@ -44,4 +44,12 @@ public class FinanceEntryController {
                 new ApiResponse<>(200, "Fetched entry by id", dto)
         );
     }
+
+    @PutMapping("/entries/{id}")
+    public ResponseEntity<ApiResponse<FinanceEntryResponseDto>> updateEntryById(@Valid @RequestBody FinanceEntryRequestDto req, @PathVariable Long id) {
+        FinanceEntryResponseDto dto = service.updateEntryById(req, id);
+        return ResponseEntity.ok(
+                new ApiResponse<>(201, "Updated entry by id", dto)
+        );
+    }
 }

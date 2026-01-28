@@ -34,4 +34,16 @@ public class FinanceEntryService {
         return FinanceEntryMapper.toResponse(entry);
     }
 
+    public FinanceEntryResponseDto updateEntryById(FinanceEntryRequestDto req, Long id) {
+        FinanceEntry entry = repository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Entry not found with id: " + id));
+        entry.setAmount(req.getAmount());
+        entry.setType(req.getType());
+        entry.setDescription(req.getDescription());
+        entry.setDate(req.getDate());
+        entry.setCategory(req.getCategory());
+
+        FinanceEntry updated = repository.save(entry);
+        return FinanceEntryMapper.toResponse(updated);
+    }
 }
