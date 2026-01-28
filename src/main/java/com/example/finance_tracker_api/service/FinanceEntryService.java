@@ -18,4 +18,6 @@ public class FinanceEntryService {
         FinanceEntry saved = repository.save(entry);
         return FinanceEntryMapper.toResponse(saved);
     }
+
+
 }
