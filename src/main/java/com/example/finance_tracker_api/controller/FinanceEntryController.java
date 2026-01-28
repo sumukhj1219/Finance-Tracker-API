@@ -2,6 +2,7 @@ package com.example.finance_tracker_api.controller;
 
 import com.example.finance_tracker_api.dto.FinanceEntryRequestDto;
 import com.example.finance_tracker_api.dto.FinanceEntryResponseDto;
+import com.example.finance_tracker_api.dto.FinanceEntrySummaryDto;
 import com.example.finance_tracker_api.entity.FinanceEntry;
 import com.example.finance_tracker_api.payload.ApiResponse;
 import com.example.finance_tracker_api.service.FinanceEntryService;
@@ -50,6 +51,22 @@ public class FinanceEntryController {
         FinanceEntryResponseDto dto = service.updateEntryById(req, id);
         return ResponseEntity.ok(
                 new ApiResponse<>(201, "Updated entry by id", dto)
+        );
+    }
+
+    @DeleteMapping("/entries/{id}")
+    public ResponseEntity<ApiResponse<FinanceEntryResponseDto>> deleteEntryById(@PathVariable    Long id) {
+        FinanceEntryResponseDto dto = service.deleteById(id);
+        return ResponseEntity.ok(
+                new ApiResponse<>(201, "Deleted entry by id", dto)
+        );
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<ApiResponse<FinanceEntrySummaryDto>> summary() {
+        FinanceEntrySummaryDto dto = service.getSummary();
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Savings summary", dto)
         );
     }
 }
