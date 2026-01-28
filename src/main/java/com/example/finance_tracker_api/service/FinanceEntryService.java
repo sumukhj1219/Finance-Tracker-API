@@ -8,4 +8,5 @@ public class FinanceEntryService {
     public FinanceEntryService(FinanceEntryRepository repository) {
         this.repository = repository;
     }
+
 }
