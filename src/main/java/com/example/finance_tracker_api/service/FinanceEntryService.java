@@ -7,6 +7,8 @@ import com.example.finance_tracker_api.mapper.FinanceEntryMapper;
 import com.example.finance_tracker_api.repository.FinanceEntryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FinanceEntryService {
     private final FinanceEntryRepository repository;
@@ -15,11 +17,14 @@ public class FinanceEntryService {
         this.repository = repository;
     }
 
-    public FinanceEntryResponseDto create(FinanceEntryRequestDto req) {
+    public FinanceEntryResponseDto createEntry(FinanceEntryRequestDto req) {
         FinanceEntry entry = FinanceEntryMapper.toEntity(req);
         FinanceEntry saved = repository.save(entry);
         return FinanceEntryMapper.toResponse(saved);
     }
 
-
+    public List<FinanceEntryResponseDto> getAllEntries() {
+        List<FinanceEntry> entries = repository.findAll();
+        return entries.stream().map(FinanceEntryMapper::toResponse).toList();
+    }
 }

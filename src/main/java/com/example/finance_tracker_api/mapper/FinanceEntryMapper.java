@@ -12,18 +12,12 @@ public class FinanceEntryMapper {
         entry.setCategory(dto.getCategory());
         entry.setDate(dto.getDate());
         entry.setDescription(dto.getDescription());
-        entry.setType(dto.getType() != null ? dto.getType() : FinanceEntryType.EXPENSE);
+        entry.setType(dto.getType());
         System.out.println(entry.getAmount());
         return entry;
     }
 
     public static FinanceEntryResponseDto toResponse(FinanceEntry entry) {
-        System.out.println("Amount: " + entry.getAmount());
-        System.out.println("Category: " + entry.getCategory());
-        System.out.println("Date: " + entry.getDate());
-        System.out.println("Description: " + entry.getDescription());
-        System.out.println("Type: " + entry.getType());
-
         FinanceEntryResponseDto dto = new FinanceEntryResponseDto();
         dto.setAmount(entry.getAmount());
         dto.setCategory(entry.getCategory());

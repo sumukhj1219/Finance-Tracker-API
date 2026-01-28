@@ -7,10 +7,9 @@ import com.example.finance_tracker_api.payload.ApiResponse;
 import com.example.finance_tracker_api.service.FinanceEntryService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -22,11 +21,20 @@ public class FinanceEntryController {
         this.service = service;
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<ApiResponse<FinanceEntryResponseDto>> create(@Valid @RequestBody FinanceEntryRequestDto req) {
-        FinanceEntryResponseDto dto = service.create(req);
+    @PostMapping("/entries")
+    public ResponseEntity<ApiResponse<FinanceEntryResponseDto>> createEntry(@Valid @RequestBody FinanceEntryRequestDto req) {
+        FinanceEntryResponseDto dto = service.createEntry(req);
         return ResponseEntity.status(201).body(
                 new ApiResponse<>( 201, "Created new entry", dto)
         );
     }
+
+    @GetMapping("/entries")
+    public ResponseEntity<ApiResponse<List<FinanceEntryResponseDto>>> getAllEntries() {
+        List<FinanceEntryResponseDto> entries = service.getAllEntries();
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "All entries fetched", entries)
+        );
+    }
+
 }
