@@ -6,16 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
-@jakarta.persistence.Entity
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "finance_entry")
 public class FinanceEntry {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -25,11 +27,12 @@ public class FinanceEntry {
     private String category;
 
     @Column(nullable = false)
-    private Date date;
+    private LocalDate date;
 
     @Column(nullable = true)
     private String description;
 
-    @Column
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private FinanceEntryType type;
 }

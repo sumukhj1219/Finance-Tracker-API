@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -21,7 +21,7 @@ public class FinanceEntryRequestDto {
     private String category;
 
     @NotNull
-    private Date date;
+    private LocalDate date;
 
     private String description;
 

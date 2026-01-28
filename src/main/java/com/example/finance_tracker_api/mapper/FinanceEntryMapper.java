@@ -2,6 +2,7 @@ package com.example.finance_tracker_api.mapper;
 
 import com.example.finance_tracker_api.dto.*;
 import com.example.finance_tracker_api.entity.FinanceEntry;
+import com.example.finance_tracker_api.entity.FinanceEntryType;
 
 public class FinanceEntryMapper {
 
@@ -11,15 +12,24 @@ public class FinanceEntryMapper {
         entry.setCategory(dto.getCategory());
         entry.setDate(dto.getDate());
         entry.setDescription(dto.getDescription());
+        entry.setType(dto.getType() != null ? dto.getType() : FinanceEntryType.EXPENSE);
+        System.out.println(entry.getAmount());
         return entry;
     }
 
     public static FinanceEntryResponseDto toResponse(FinanceEntry entry) {
+        System.out.println("Amount: " + entry.getAmount());
+        System.out.println("Category: " + entry.getCategory());
+        System.out.println("Date: " + entry.getDate());
+        System.out.println("Description: " + entry.getDescription());
+        System.out.println("Type: " + entry.getType());
+
         FinanceEntryResponseDto dto = new FinanceEntryResponseDto();
         dto.setAmount(entry.getAmount());
         dto.setCategory(entry.getCategory());
         dto.setDate(entry.getDate());
         dto.setDescription(entry.getDescription());
+        dto.setType(entry.getType());
         return dto;
     }
 }
