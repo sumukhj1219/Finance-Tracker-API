@@ -1,3 +1,14 @@
 spring:
   application:
     name: finance-tracker-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/financedb?createDatabaseIfNotExists=true
+    password: postgres
+    username: postgres
+    jpa:
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
