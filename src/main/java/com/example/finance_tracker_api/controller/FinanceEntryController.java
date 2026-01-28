@@ -31,10 +31,17 @@ public class FinanceEntryController {
 
     @GetMapping("/entries")
     public ResponseEntity<ApiResponse<List<FinanceEntryResponseDto>>> getAllEntries() {
-        List<FinanceEntryResponseDto> entries = service.getAllEntries();
+        List<FinanceEntryResponseDto> dto = service.getAllEntries();
         return ResponseEntity.ok(
-                new ApiResponse<>(200, "All entries fetched", entries)
+                new ApiResponse<>(200, "All entries fetched", dto)
         );
     }
 
+    @GetMapping("/entries/{id}")
+    public ResponseEntity<ApiResponse<FinanceEntryResponseDto>> getEntryById(@PathVariable Long id) {
+        FinanceEntryResponseDto dto = service.getEntryById(id);
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Fetched entry by id", dto)
+        );
+    }
 }

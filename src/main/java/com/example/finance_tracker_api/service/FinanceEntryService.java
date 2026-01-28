@@ -27,4 +27,11 @@ public class FinanceEntryService {
         List<FinanceEntry> entries = repository.findAll();
         return entries.stream().map(FinanceEntryMapper::toResponse).toList();
     }
+
+    public FinanceEntryResponseDto getEntryById(Long id) {
+        FinanceEntry entry = repository.findById(id)
+                            .orElseThrow(() -> new RuntimeException("Entry not found with id: " + id));
+        return FinanceEntryMapper.toResponse(entry);
+    }
+
 }
