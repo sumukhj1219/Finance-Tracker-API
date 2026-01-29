@@ -13,7 +13,6 @@ public class FinanceEntryMapper {
         entry.setDate(dto.getDate());
         entry.setDescription(dto.getDescription());
         entry.setType(dto.getType());
-        System.out.println(entry.getAmount());
         return entry;
     }
 
