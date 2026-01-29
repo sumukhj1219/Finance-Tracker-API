@@ -1,0 +1,72 @@
+package com.example.finance_tracker_api.controller;
+
+import com.example.finance_tracker_api.dto.FinanceEntryRequestDto;
+import com.example.finance_tracker_api.dto.FinanceEntryResponseDto;
+import com.example.finance_tracker_api.dto.FinanceEntrySummaryDto;
+import com.example.finance_tracker_api.entity.FinanceEntry;
+import com.example.finance_tracker_api.payload.ApiResponse;
+import com.example.finance_tracker_api.service.FinanceEntryService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+@RestController
+@RequestMapping("/api/v1")
+public class FinanceEntryController {
+    private final FinanceEntryService service;
+
+    public FinanceEntryController(FinanceEntryService service) {
+        this.service = service;
+    }
+
+    @PostMapping("/entries")
+    public ResponseEntity<ApiResponse<FinanceEntryResponseDto>> createEntry(@Valid @RequestBody FinanceEntryRequestDto req) {
+        FinanceEntryResponseDto dto = service.createEntry(req);
+        return ResponseEntity.status(201).body(
+                new ApiResponse<>( 201, "Created new entry", dto)
+        );
+    }
+
+    @GetMapping("/entries")
+    public ResponseEntity<ApiResponse<List<FinanceEntryResponseDto>>> getAllEntries() {
+        List<FinanceEntryResponseDto> dto = service.getAllEntries();
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "All entries fetched", dto)
+        );
+    }
+
+    @GetMapping("/entries/{id}")
+    public ResponseEntity<ApiResponse<FinanceEntryResponseDto>> getEntryById(@PathVariable Long id) {
+        FinanceEntryResponseDto dto = service.getEntryById(id);
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Fetched entry by id", dto)
+        );
+    }
+
+    @PutMapping("/entries/{id}")
+    public ResponseEntity<ApiResponse<FinanceEntryResponseDto>> updateEntryById(@Valid @RequestBody FinanceEntryRequestDto req, @PathVariable Long id) {
+        FinanceEntryResponseDto dto = service.updateEntryById(req, id);
+        return ResponseEntity.ok(
+                new ApiResponse<>(201, "Updated entry by id", dto)
+        );
+    }
+
+    @DeleteMapping("/entries/{id}")
+    public ResponseEntity<ApiResponse<FinanceEntryResponseDto>> deleteEntryById(@PathVariable    Long id) {
+        FinanceEntryResponseDto dto = service.deleteById(id);
+        return ResponseEntity.ok(
+                new ApiResponse<>(201, "Deleted entry by id", dto)
+        );
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<ApiResponse<FinanceEntrySummaryDto>> summary() {
+        FinanceEntrySummaryDto dto = service.getSummary();
+        return ResponseEntity.ok(
+                new ApiResponse<>(200, "Savings summary", dto)
+        );
+    }
+}
